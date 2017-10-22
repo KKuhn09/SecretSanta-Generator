@@ -10,6 +10,11 @@ var app = express(); //creates express app
 //sets our port to either the deployed port or local port 3000
 var port = process.env.PORT || 3000;
 
+var passport = require("passport");
+
+//configuration
+require("./config/passport")(passport);
+
 //set up our express app
 app.use(morgan("dev")); //logs every request to the console
 app.use(bodyParser.urlencoded({
@@ -20,7 +25,7 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs"); //set up ejs for templating
 
 //routes
-require("./app/routes.js")(app);
+require("./app/routes.js")(app, passport);
 //launch
 app.listen(port);
 console.log("Listening on port " + port);
