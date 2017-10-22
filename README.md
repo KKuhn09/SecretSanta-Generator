@@ -1,1 +1,1 @@
-# SecretSanta-Generator
+# Secret Santa Generator
