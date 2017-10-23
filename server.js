@@ -4,6 +4,7 @@
 // require the tools we need
 var express = require("express");
 var session = require("express-session");
+var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var morgan = require("morgan");
 var app = express(); //creates express app
@@ -17,6 +18,7 @@ require("./config/passport")(passport);
 
 //set up our express app
 app.use(morgan("dev")); //logs every request to the console
+app.use(cookieParser()); //read cookies (needed for authentication)
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
@@ -25,7 +27,8 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs"); //set up ejs for templating
 
 //routes
-require("./app/routes.js")(app, passport);
+require("./app/routes.js")(app, passport); //loads our routes and pass in our app/passport
+
 //launch
 app.listen(port);
 console.log("Listening on port " + port);
