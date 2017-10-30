@@ -12,9 +12,10 @@ var app = express(); //creates express app
 var port = process.env.PORT || 3000;
 
 var passport = require("passport");
+var flash = require("connect-flash");
 
 //configuration
-require("./config/passport")(passport);
+require("./config/passport")(passport); //pass passport for config
 
 //set up our express app
 app.use(morgan("dev")); //logs every request to the console
