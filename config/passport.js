@@ -29,17 +29,15 @@ module.exports = function(passport){
 	});
 
 	//LOCAL SIGNUP
-	passport.use(
-		"local-signup",
-		new LocalStrategy({
+	passport.use("local-signup", new LocalStrategy({
 			usernameField: "username",
 			passwordField: "password",
 			passReqToCallback: true //allows us to pass back the entire request to the callback
 		},
 		function(req, username, password, done){
 			//find user whos username matches the forms username
-			//checking to see if user trying to signup already exists
-			connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows){
+			//checking to see if user trying to register already exists
+			connection.query("SELECT * FROM users WHERE username = '"+username+"'", function(err, rows){
 				if(err) return done(err);
 				if(rows.length){
 					return done(null, false, req.flash("signupMessage", "That username is already taken."));
@@ -49,8 +47,8 @@ module.exports = function(passport){
 						username: username,
 						password: bcrypt.hashSync(password, null, null)
 					};
-					var insertQuery = "INSERT INTO users ( username, password ) values (?, ?)";
-					connection.query(insertQuery,[newUserMysql.username, newUserMysql.password],function(err, rows){
+					var insertQuery = "INSERT INTO users ( username, password ) values ('"+username+"','"+password+"')";
+					connection.query(insertQuery,function(err, rows){
 						newUserMysql.id = rows.insertId;
 						return done(null, newUserMysql);
 					});
