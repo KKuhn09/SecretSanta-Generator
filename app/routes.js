@@ -16,7 +16,7 @@ module.exports = function(app, passport){
 			failureFlash: true
 		}),
 		function(req, res){
-			console.log('hello');
+			console.log("hello");
 			if(req.body.remember){
 				req.session.cookie.maxAge = 1000 * 60 * 3;
 			} else {
@@ -48,6 +48,7 @@ module.exports = function(app, passport){
 
 	//LOGOUT
 	app.get("/logout", function(req, res){
+		req.logout();
 		res.redirect("/");
 	});
 
