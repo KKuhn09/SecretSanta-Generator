@@ -10,7 +10,7 @@ var morgan = require("morgan");
 var app = express(); //creates express app
 //sets our port to either the deployed port or local port 3000
 var port = process.env.PORT || 3000;
-
+//requiring passport tool
 var passport = require("passport");
 var flash = require("connect-flash");
 
@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 app.use(bodyParser.json());
+//serves our static files from the public directory
 app.use(express.static("public"));
 
 app.set("view engine", "ejs"); //set up ejs for templating
