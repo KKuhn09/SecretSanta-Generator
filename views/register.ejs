@@ -6,33 +6,50 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 </head>
 <body>
-	<div class="container">
-		<div class="col-sm-6 col-sm-offset-3">
-			<h1><span class="fa fa-sign-in"></span> Register</h1>
 
-			<% if(message.length > 0){ %>
-				<div class="alert alert-danger"><%= message %></div>
-			<% } %>
+	<!--NAVBAR-->
+	<div class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Secret Santa</a>
+			</div>
 
-			<!--REGISTER FORM-->
-			<form action="/register" method="post">
-				<div class="form-group">
-					<label>Username</label>
-					<input type="text" class="form-control" name="username">
-				</div>
-				<div class="form-group">
-					<label>Password</label>
-					<input type="password" class="form-control" name="password">
-				</div>
+			<ul class="nav navbar-nav">
+        		<li><a href="/">Home</a></li>			
+        	</ul>
+			<ul class="nav navbar-nav navbar-right">
+        		<li><a href="/login">Login</a></li>
+        		<li class="active"><a href="/register">Sign Up</a></li>  			
+        	</ul>
 
-				<button type="submit" class="btn btn-success btn-md">Register</button>
-			</form>
-
-			<hr>
-
-			<p>Already have an account? <a href="/login">Login</a></p>
-			<p>Or go <a href="/">home</a>.</p>
 		</div>
+	</div>
+
+	<div class="col-sm-6 col-sm-offset-3">
+		<h1><span class="fa fa-sign-in"></span> Sign Up</h1>
+
+		<% if(message.length > 0){ %>
+			<div class="alert alert-danger"><%= message %></div>
+		<% } %>
+
+		<!--REGISTER FORM-->
+		<form action="/register" method="post">
+			<div class="form-group">
+				<label>Username</label>
+				<input type="text" class="form-control" name="username">
+			</div>
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" class="form-control" name="password">
+			</div>
+
+			<button type="submit" class="btn btn-success btn-md">Sign Up</button>
+		</form>
+
+		<hr>
+
+		<p>Already have an account? <a href="/login">Login</a></p>
+		<p>Or go <a href="/">home</a>.</p>
 	</div>
 </body>
 </html>

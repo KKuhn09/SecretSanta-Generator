@@ -6,14 +6,32 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 </head>
 <body>
-	<div class="container">
-		<div class="jumbotron text-center">
-			<h1>Secret Santa Generator</h1>
-			<p>Enter the names and email addresses for the gift exchange. Our Secret Santa Generator will handle the rest!</p>
-			<p>Login or Register:</p>
-			<a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
-			<a href="/register" class="btn btn-default"><span class="fa fa-user"></span> Register</a>
+
+	<!--NAVBAR-->
+	<div class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Secret Santa</a>
+			</div>
+
+			<ul class="nav navbar-nav">
+        		<li class="active"><a href="/">Home</a></li>			
+        	</ul>
+			<ul class="nav navbar-nav navbar-right">
+        		<li><a href="/login">Login</a></li>
+        		<li><a href="/register">Sign Up</a></li>  			
+        	</ul>
+
 		</div>
 	</div>
+
+	<div class="jumbotron text-center">
+		<h1>Secret Santa Generator</h1>
+		<p>Enter the names and email addresses for the gift exchange. Our Secret Santa Generator will handle the rest!</p>
+		<p>Login or Register:</p>
+		<a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
+		<a href="/register" class="btn btn-default"><span class="fa fa-user"></span> Sign Up</a>
+	</div>
+
 </body>
 </html>
