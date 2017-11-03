@@ -26,7 +26,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 //serves our static files from the public directory
 app.use(express.static("public"));
-
 app.set("view engine", "ejs"); //set up ejs for templating
 
 //required for passport
