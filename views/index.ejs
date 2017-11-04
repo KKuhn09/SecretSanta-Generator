@@ -2,9 +2,10 @@
 <html>
 <head>
 	<title>Secret Santa</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css"> <!--Browser reset-->
+	<link rel="stylesheet" href="/assets/css/styles.css" type="text/css"> <!--External Style Sheet-->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-	<link rel="stylesheet" href="/assets/css/styles.css" type="text/css"> <!--External Style Sheet-->
 	<meta name="viewport" content="width=device-width, initial-scale=1"> <!--Ensure proper rendering and touch zooming-->
 </head>
 <body>
@@ -18,23 +19,33 @@
 			</div>
 
 			<ul class="nav navbar-nav">
-        		<li class="active"><a href="/">Home</a></li>			
-        	</ul>
+		        <li class="active"><a href="/">Home</a></li>			
+		    </ul>
+
 			<ul class="nav navbar-nav navbar-right">
-        		<li><a href="/login">Login</a></li>
-        		<li><a href="/register">Sign Up</a></li>  			
-        	</ul>
+		        <li><a href="/login">Login</a></li>
+		        <li><a href="/register">Sign Up</a></li>  			
+		    </ul>
 
 		</div>
 	</div>
 
 	<!--JUMBOTRON-->
 	<div class="jumbotron text-center">
-		<h1>Secret Santa Generator</h1>
-		<p>Login or Register:</p>
-		<a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
-		<a href="/register" class="btn btn-default"><span class="fa fa-user"></span> Sign Up</a>
+		<div class="container-fluid">
+			<h1>Secret Santa Generator</h1>
+			<p>Login or Register:</p>
+			<a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
+			<a href="/register" class="btn btn-default"><span class="fa fa-user"></span> Sign Up</a>
+		</div>
 	</div>
+
+	<!--FOOTER-->
+	<footer class="footer text-center">
+		<div class="container-fluid">
+			<p>&copy;2017 SSGen</p>
+		</div>
+	</footer>
 
 </body>
 </html>

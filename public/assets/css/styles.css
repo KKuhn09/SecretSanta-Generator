@@ -1,6 +1,12 @@
 .jumbotron{
 	margin-top:-20px;
-	height: 900px;
+	height: 890px;
 	background-image: url("../images/jumbo1.jpg");
 	background-size: cover;
+}
+.navbar{
+	
+}
+.footer{
+	margin-top:-10px;
 }
