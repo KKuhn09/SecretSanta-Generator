@@ -11,37 +11,41 @@
 <body>
 
 	<!--NAVBAR-->
-	<div class="row">
-		<div class="navbar navbar-default">
-			<div class="container-fluid">
+	<div class="container-fluid">
+		<div class="row">
 
+			<nav class="navbar navbar-custom">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#"> Hello, <%= user.username %>!</a>
+					<a class="navbar-brand" href="#" style="color:white"> Hello, <%= user.username %>!</a>
 				</div>
-
+				<!--Links to home, login page, signup page-->
 				<ul class="nav navbar-nav">
-	        		<li class="active"><a href="/">Home</a></li>			
+	        		<li class="active"><a href="/profile" style="color:white">Profile</a></li>			
 	        	</ul>
 				<ul class="nav navbar-nav navbar-right">
-	        		<li><a href="/logout">Logout</a></li>			
+	        		<li><a href="/logout" style="color:blue">Logout</a></li>			
 	        	</ul>
+			</nav>
 
-			</div>
 		</div>
 	</div>
 
 	<!--JUMBOTRON-->
 	<div class="row">
 		<div class="jumbotron">
-
-			<div class="page-header text-center">
-				<h1>Profile Page</h1>
+			
+			<div class="row">
+				<div class="col-sm-offset-3 col-sm-6">
+					<div class="well text-center" style="border-radius:70px">
+						<h1>Welcome, <%= user.username %>!</h1>
+					</div>
+				</div>
 			</div>
 
 			<div class="row">
-				<div class="col-sm-6">
-					<div class="well">
-						<h3><span class="fa fa-user"></span> Local</h3>
+				<div class="col-sm-offset-2 col-sm-8">
+					<div class="well" style="border-radius:30px">
+						<strong>Local</strong>
 						<!--Our user-specific information-->
 						<p>
 							<strong>id</strong>: <%= user.id %><br>
