@@ -2,75 +2,86 @@
 <html>
 <head>
 	<title>Secret Santa</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css"> <!--Browser reset-->
+	<link rel="stylesheet" href="/assets/css/styles.css" type="text/css"> <!--External Style Sheet-->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-	<link rel="stylesheet" href="/assets/css/styles.css" type="text/css"> <!--External Style Sheet-->
 	<meta name="viewport" content="width=device-width, initial-scale=1"> <!--Ensure proper rendering and touch zooming-->
 </head>
 <body>
 
 	<!--NAVBAR-->
-	<div class="navbar navbar-default">
-		<div class="container-fluid">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="navbar navbar-default">
 
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Secret Santa</a>
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Secret Santa</a>
+				</div>
+				<!--Links to home, login page, signup page-->
+				<ul class="nav navbar-nav">
+	        		<li><a href="/">Home</a></li>			
+	        	</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+	        		<li class="active"><a href="/login">Login</a></li>
+	        		<li><a href="/register">Sign Up</a></li>  			
+	        	</ul>
+
 			</div>
-
-			<ul class="nav navbar-nav">
-        		<li><a href="/">Home</a></li>			
-        	</ul>
-			<ul class="nav navbar-nav navbar-right">
-        		<li class="active"><a href="/login">Login</a></li>
-        		<li><a href="/register">Sign Up</a></li>  			
-        	</ul>
-
 		</div>
 	</div>
 
 	<!--JUMBOTRON-->
-	<div class="jumbotron">
-		<h1 class="text-center"><span class="fa fa-sign-in"></span> Login</h1>
-
-		<!--LOGIN FORM-->
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-6">
-				<div class="well">
+			<div class="jumbotron">
 
-					<form action="/login" method="post">
-						<div class="form-group">
-							<label>Username</label>
-							<input type="text" class="form-control" name="username">
+				<!--LOGIN FORM-->
+				<div class="row">
+					<div class="col-sm-offset-3 col-sm-6">
+						<div class="well login-well">
+
+							<h1><span class="fa fa-sign-in"></span> Login</h1>
+
+							<form action="/login" method="post">
+								<div class="form-group">
+									<label>Username</label>
+									<input type="text" class="form-control" name="username">
+								</div>
+								<div class="form-group">
+									<label>Password</label>
+									<input type="password" class="form-control" name="password">
+								</div>
+
+								<button type="submit" class="btn btn-success btn-md">Login</button><br>
+							</form><br>
+								
+							<!-- show any messages that come back with authentication -->
+							<% if (message.length > 0) { %>
+					        	<div class="alert alert-danger"><%= message %></div>
+					    	<% } %>
+
+							<hr class="style1">
+							<p>Need an account? <a href="/register">Signup</a></p>
+							<p>Or go <a href="/">home</a>.</p>
+
 						</div>
-						<div class="form-group">
-							<label>Password</label>
-							<input type="password" class="form-control" name="password">
-						</div>
-
-						<button type="submit" class="btn btn-success btn-md">Login</button><br>
-					</form><br>
-					
-					<!-- show any messages that come back with authentication -->
-					<% if (message.length > 0) { %>
-		        		<div class="alert alert-danger"><%= message %></div>
-		    		<% } %>	
-
+					</div>
 				</div>
+
 			</div>
 		</div>
-
-		<hr>
-
-		<p>Need an account? <a href="/register">Signup</a></p>
-		<p>Or go <a href="/">home</a>.</p>
 	</div>
 
 	<!--FOOTER-->
-	<footer class="footer text-center">
-		<div class="container-fluid">
-			<p>&copy;2017 SSGen</p>
+	<div class="container-fluid">
+		<div class="row">
+			<footer class="footer text-center">
+					<p>&copy;2017 SSGen</p>
+			</footer>
 		</div>
-	</footer>
+	</div>
 
 </body>
 </html>

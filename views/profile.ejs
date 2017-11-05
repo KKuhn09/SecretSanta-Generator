@@ -2,60 +2,67 @@
 <html>
 <head>
 	<title>Secret Santa</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css"> <!--Browser reset-->
+	<link rel="stylesheet" href="/assets/css/styles.css" type="text/css"> <!--External Style Sheet-->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-	<link rel="stylesheet" href="/assets/css/styles.css" type="text/css"> <!--External Style Sheet-->
 	<meta name="viewport" content="width=device-width, initial-scale=1"> <!--Ensure proper rendering and touch zooming-->
 </head>
 <body>
 
 	<!--NAVBAR-->
-	<div class="navbar navbar-default">
-		<div class="container-fluid">
+	<div class="row">
+		<div class="navbar navbar-default">
+			<div class="container-fluid">
 
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#"> Hello, <%= user.username %>!</a>
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"> Hello, <%= user.username %>!</a>
+				</div>
+
+				<ul class="nav navbar-nav">
+	        		<li class="active"><a href="/">Home</a></li>			
+	        	</ul>
+				<ul class="nav navbar-nav navbar-right">
+	        		<li><a href="/logout">Logout</a></li>			
+	        	</ul>
+
 			</div>
-
-			<ul class="nav navbar-nav">
-        		<li class="active"><a href="/">Home</a></li>			
-        	</ul>
-			<ul class="nav navbar-nav navbar-right">
-        		<li><a href="/logout">Logout</a></li>			
-        	</ul>
-
 		</div>
 	</div>
 
 	<!--JUMBOTRON-->
-	<div class="jumbotron">
+	<div class="row">
+		<div class="jumbotron">
 
-		<div class="page-header text-center">
-			<h1>Profile Page</h1>
-		</div>
+			<div class="page-header text-center">
+				<h1>Profile Page</h1>
+			</div>
 
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="well">
-					<h3><span class="fa fa-user"></span> Local</h3>
-
-					<p>
-						<strong>id</strong>: <%= user.id %><br>
-						<strong>username</strong>: <%= user.username %><br>
-						<strong>password</strong>: <%= user.password %>
-					</p>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="well">
+						<h3><span class="fa fa-user"></span> Local</h3>
+						<!--Our user-specific information-->
+						<p>
+							<strong>id</strong>: <%= user.id %><br>
+							<strong>username</strong>: <%= user.username %><br>
+							<strong>password</strong>: <%= user.password %>
+						</p>
+					</div>
 				</div>
 			</div>
-		</div>
 
-	</div>
-	
-	<!--FOOTER-->
-	<footer class="footer text-center">
-		<div class="container-fluid">
-			<p>&copy;2017 SSGen</p>
 		</div>
-	</footer>
+	</div>
+
+	<!--FOOTER-->
+	<div class="container-fluid">
+		<div class="row">
+			<footer class="footer text-center">
+				<p>&copy;2017 SSGen</p>	
+			</footer>
+		</div>
+	</div>
 	
 </body>
 </html>

@@ -11,41 +11,54 @@
 <body>
 
 	<!--NAVBAR-->
-	<div class="navbar navbar-default">
-		<div class="container-fluid">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="navbar navbar-default">
 
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Secret Santa</a>
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Secret Santa</a>
+				</div>
+				<!--Links to home, login page, signup page-->
+				<ul class="nav navbar-nav">
+			        <li class="active"><a href="/">Home</a></li>			
+			    </ul>
+
+				<ul class="nav navbar-nav navbar-right">
+			        <li><a href="/login">Login</a></li>
+			        <li><a href="/register">Sign Up</a></li>  			
+			    </ul>
+
 			</div>
-
-			<ul class="nav navbar-nav">
-		        <li class="active"><a href="/">Home</a></li>			
-		    </ul>
-
-			<ul class="nav navbar-nav navbar-right">
-		        <li><a href="/login">Login</a></li>
-		        <li><a href="/register">Sign Up</a></li>  			
-		    </ul>
-
 		</div>
 	</div>
 
 	<!--JUMBOTRON-->
-	<div class="jumbotron text-center">
-		<div class="container-fluid">
-			<h1>Secret Santa Generator</h1>
-			<p>Login or Register:</p>
-			<a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
-			<a href="/register" class="btn btn-default"><span class="fa fa-user"></span> Sign Up</a>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="jumbotron">
+
+				<div class="col-sm-offset-3 col-sm-6">
+					<div class="well login-well">
+						<h1 class="text-center">Secret Santa Generator</h1><br>
+						<p>This Secret Santa generator will make your holiday gift exchange this season as stress-free as possible</p><br>
+						<p>Create an account or sign in if you already have one:</p>
+						<a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a><br>
+						<a href="/register" class="btn btn-default"><span class="fa fa-user"></span> Sign Up</a>
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
 
 	<!--FOOTER-->
-	<footer class="footer text-center">
-		<div class="container-fluid">
-			<p>&copy;2017 SSGen</p>
+	<div class="container-fluid">
+		<div class="row">
+			<footer class="footer text-center">
+				<p>&copy;2017 SSGen</p>	
+			</footer>
 		</div>
-	</footer>
+	</div>
 
 </body>
 </html>
