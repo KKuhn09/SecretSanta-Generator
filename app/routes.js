@@ -7,11 +7,13 @@ module.exports = function(app, passport){
 	});
 
 	//LOGIN
+	//Render login page
 	app.get("/login", function(req, res){
 		res.render("login.ejs", { message: req.flash("loginMessage") });
 	});
+	//Log the user in
 	app.post("/login", passport.authenticate("local-login", {
-			successRedirect: "/profile",
+			successRedirect: "/profile", 
 			failureRedirect: "/login",
 			failureFlash: true
 		}),
@@ -42,7 +44,7 @@ module.exports = function(app, passport){
 	//PROFILE PAGE
 	app.get("/profile", isLoggedIn, function(req, res){
 		res.render("profile.ejs", {
-			user : req.user //get the user out of session and pass to the template
+			user : req.user // pass user info to the template
 		});
 	});
 
