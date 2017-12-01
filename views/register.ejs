@@ -6,7 +6,6 @@
 	<link rel="stylesheet" href="/assets/css/styles.css" type="text/css"> <!--External Style Sheet-->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> <!--Ensure proper rendering and touch zooming-->
 </head>
 <body>
@@ -53,14 +52,10 @@
 									<label>Password</label>
 									<input type="password" class="form-control" name="password" placeholder="Password" id="pass" required>
 								</div>
-								<!-- <div class="form-group">
-									<label>Re-enter Password</label>
-									<input type="password" class="form-control" name="password" placeholder="Re-enter Password" id="pass-valid" required>
-								</div> -->
-								<!-- <div class="form-group">
+								<div class="form-group">
 									<label>Email</label>
 									<input type="email" class="form-control" name="email" placeholder="Email" required>
-								</div> -->
+								</div>
 
 								<button type="submit" id="form-button" class="btn btn-primary btn-md">Sign Up</button>
 							</form><br>
@@ -90,28 +85,6 @@
 			</footer>
 		</div>
 	</div>
-
-	<script>
-		$(document).ready(function() {
-			//Check if the passwords from form match
-			// function checkPasswords(pass, pass2){
-			// 	//Store user input
-			// 	const password = $('#pass').val();
-			// 	const confirmPassword = $('#pass-valid').val();
-			// 	//If passwords match, activate the form button
-			// 	if(password === confirmPassword){
-			// 		$('#form-button').prop("disabled", false);
-			// 	}
-			// 	//If passwords do not match, disable the button
-			// 	else{
-			// 		$('#form-button').prop("disabled", true);
-			// 	}
-			// }
-   //  		$('input').keyup(function() {
-			// 	checkPasswords();
-			// });
-    	});
-	</script>
 
 </body>
 </html>

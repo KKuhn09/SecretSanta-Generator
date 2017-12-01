@@ -29,7 +29,15 @@ app.use(express.static("public"));//Serve static files from the public directory
 app.set("view engine", "ejs"); //Ejs for templating
 
 //MongoDB config
+mongoose.Promise = Promise; //set mongoose to leverage built in JS ES6 promises
+const db = mongoose.connection;
 mongoose.connect(process.env.MONGODB_URI || dbConfig.url);
+db.on("error", function(error) {
+  console.log("Mongoose Error: ", error);
+});
+db.once("open", function() {
+  console.log("Mongoose connection successful.");
+});
 
 //Passport config
 require("./config/passport")(passport);
@@ -44,7 +52,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 //Routes
-require("./app/routes.js")(app, passport); //Load routes and pass in app and passport
+require("./controllers/users.js")(app, passport); //Load routes and pass in app and passport
 
 //Launch the server
 app.listen(port);
