@@ -1,33 +1,65 @@
 //config/passport.js
 
-var LocalStrategy = require("passport-local").Strategy;
+//Local Passport Strategy
+const LocalStrategy = require("passport-local").Strategy;
 
-//load up the user model
-var mysql = require("mysql2");
-var bcrypt = require("bcrypt-nodejs");
-var dbconfig = require("./database");
-var connection = mysql.createConnection(dbconfig.connection);
+//Load up the user model
+const User = require("../models/user.js")
+const bCrypt = require("bcrypt-nodejs");
 
-connection.query("USE " + dbconfig.database);
-//expose this function to our app using module.exports
+//Helper function to validate password using bCrypt
+var isValidPassword = function(user, password){
+  return bCrypt.compareSync(password, user.password);
+}
+//Helper function to generate hash using bCrypt
+var createHash = function(password){
+ return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+}
+
+//Expose this function to the app using module.exports
 module.exports = function(passport){
-
+	
 	//PASSPORT SESSION SETUP
 	//required for persisten login sessions
 	//passport needs ability to serialize and deserialize users out of the session
 
-	//used to serialize the user for the session
-	passport.serializeUser(function(user, done){
-		done(null, user.id);
+	//Serialize the user for the session
+	passport.serializeUser(function(user, done) {
+  		done(null, user._id);
 	});
 
-	//used to deserialize the user
-	passport.deserializeUser(function(id, done){
-		connection.query("SELECT * FROM users WHERE id = ? ",[id], function(err, rows){
-			done(err, rows[0]);
-		});
+	//Deserialize the user
+	passport.deserializeUser(function(id, done) {
+  		User.findById(id, function(err, user) {
+    		done(err, user);
+  		});
 	});
 
+	//LOCAL LOGIN
+	passport.use('local-login', new LocalStrategy({
+			usernameField: "username",
+			passwordField: "password",
+			passReqToCallback: true
+		},
+		function(req, username, password, done){
+			//Check if username exists in Mongo
+			User.findOne({'username':username}, function(err, user){
+				//Return error if any
+				if(err) return done(err);
+				//If user does not exist
+				if(!user){
+					return done(null, false, req.flash("loginMessage", "No user found."));
+				}
+				//If user exists but incorrect password
+				if(!isValidPassword(user, password)){
+					return done(null, false, req.flash("loginMessage", "Oops! Wrong password."));
+				}
+				//If everything matches, return successful user
+				return done(null, user);
+			});
+		}
+	));
+	
 	//LOCAL SIGNUP
 	passport.use("local-signup", new LocalStrategy({
 			usernameField: "username",
@@ -35,51 +67,43 @@ module.exports = function(passport){
 			passReqToCallback: true //allows us to pass back the entire request to the callback
 		},
 		function(req, username, password, done){
-			//find user whos username matches the forms username
-			//checking to see if user trying to register already exists
-			connection.query("SELECT * FROM users WHERE username = '"+username+"'", function(err, rows){
-				console.log(rows);
-				if(err) return done(err);
-				if(rows.length){
-					return done(null, false, req.flash("signupMessage", "That username is already taken."));
-				}
-				else{
-					//if there is no user with that username, create the user
-					var newUserMysql = {
-						username: username,
-						password: bcrypt.hashSync(password, null, null)
-					};
-					console.log(newUserMysql.password);
-					var insertQuery = "INSERT INTO users ( username, password ) values ('"+username+"','"+newUserMysql.password+"')";
-					connection.query(insertQuery,function(err, rows){
-						if(err) return done(err);
-						newUserMysql.id = rows.insertId;
-						return done(null, newUserMysql);
-					});
-				}
-			});
-		})
-	);
+			findOrCreateUser = function(){
+				//Check in Mongo for user with username
+				User.findOne({'username':username},function(err, user){
+					console.log(user);
+					//Return error if any
+					if(err){
+						console.log('Error in SignUp: '+err);
+						return done(err);
+					}
+					//If username already exists
+					if(user){
+						console.log('User already exists');
+						return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+					}
+					//If there is no user with that username
+					else{
+						//Create the user
+						var newUser = new User();
+						newUser.username = username,
+						newUser.password = createHash(password);//encrypt the password
+						//newUser.email = req.param('email');
 
-	//LOCAL LOGIN
-	passport.use("local-login", new LocalStrategy({
-			usernameField: "username",
-			passwordField: "password",
-			passReqToCallback: true
-		},
-		function(req, username, password, done){
-			connection.query("SELECT * FROM users WHERE username = '"+username+"'", function(err, rows){
-				if(err) return done(err);
-				if(!rows.length){
-					return done(null, false, req.flash("loginMessage", "No user found."));
-				}
-				//if the user is found but the password is wrong
-				if(!bcrypt.compareSync(password, rows[0].password))
-					return done(null, false, req.flash("loginMessage", "Oops! Wrong password."));
+						//Save the user
+						newUser.save(function(err){
+							if(err){
+								console.log('Error in Saving user: '+err); 
+								throw err;
+							}
+							return done(null, newUser);
+						});
+					}
+				});
+			};
 
-				//if everything matches, return successful user
-				return done(null, rows[0]);
-			});
-		})
-	);
+			// Delay the execution of findOrCreateUser and execute 
+	    	// the method in the next tick of the event loop
+			process.nextTick(findOrCreateUser);
+		}
+	));
 };
