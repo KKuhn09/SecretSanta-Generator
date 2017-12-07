@@ -16,7 +16,7 @@
 
 			<nav class="navbar navbar-custom">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#" style="color:white"> Hello, <%= user.username %>!</a>
+					<a class="navbar-brand" href="#" style="color:white"><%= user.username %></a>
 				</div>
 				<!--Links to home, login page, signup page-->
 				<ul class="nav navbar-nav">
@@ -44,10 +44,18 @@
 
 			<div class="row">
 				<div class="col-sm-offset-2 col-sm-8">
-					<div class="well text-center" style="border-radius:30px">
-						<p class="text-center">Create A Group</p>
-						<form method="get" action="/creategroup">
-							<button type="submit" class="btn btn-success btn-md">Create A Group</button>
+					<div class="well" style="border-radius:30px">
+						<p class="text-center">Now, add the names and emails of the members in your gift exchange</p>
+						<!--Our user-specific information-->
+						<form action="/creategroup" method="post">
+							<div class="form-group">
+								<label for="location">Location</label>
+								<input type="text" class="form-control" name="location" id="location" placeholder="Location" required>
+								<label for="budget">Budget</label>
+								<input type="text" class="form-control" name="budget" id="budget" placeholder="$XX.XX" required>
+							</div>
+
+							<button type="submit" id="form-button" class="btn btn-primary btn-md">Create Group</button>
 						</form>
 					</div>
 				</div>

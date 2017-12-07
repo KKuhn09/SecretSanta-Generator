@@ -1,9 +1,13 @@
+//Models for MongoDB interaction
+const User = require("../models/user.js");
+const Group = require("../models/group.js");
+
 // controllers/routes.js
 module.exports = function(app, passport){
 
-	//=========
+	//==========
 	//HOME ROUTE
-	//=========
+	//==========
 
 	//Render home page
 	app.get("/", function(req, res){
@@ -53,13 +57,47 @@ module.exports = function(app, passport){
 		failureFlash: true //allow flash messages
 	}));
 
-	//=============
-	//PROFILE ROUTE
-	//=============
+	//===================
+	//USER PROFILE ROUTES
+	//===================
+	//These routes are only available to users who are logged in
 
 	//Render profile page
 	app.get("/profile", isLoggedIn, function(req, res){
 		res.render("profile.ejs", {
+			user : req.user // pass user info to the template
+		});
+	});
+
+	//Render create a group page
+	app.get("/creategroup", isLoggedIn, function(req, res){
+		res.render("creategroup.ejs", {
+			user : req.user // pass user info to the template
+		});
+	});
+
+	//Create basic group collection
+	app.post("/creategroup", function(req, res){
+		const userId = req.user.id; //Store user id
+		//Find user in database
+		User.findOne({"_id": userId}, function(err, user){
+			console.log(user);
+			var newGroup = new Group({location: req.body.location, budget: req.body.budget});
+			newGroup.members.push({memberUsername: user.username, memberEmail: user.email});
+			newGroup.save(function(err){
+				if(err) throw err;
+			});
+			user.groups.push(newGroup._id);
+			user.save(function(err){
+				if(err) throw err;
+			});
+		});
+		res.redirect("/addmembers");
+	});
+
+	//Render add members page
+	app.get("/addmembers", function(req, res){
+		res.render("addmembers.ejs", {
 			user : req.user // pass user info to the template
 		});
 	});
@@ -76,7 +114,7 @@ module.exports = function(app, passport){
 
 };
 
-//Route middleware to make sure
+//Route middleware to make sure user is logged 
 function isLoggedIn(req, res, next){
 	//if user is authenticated in the session, carry on
 	if(req.isAuthenticated())

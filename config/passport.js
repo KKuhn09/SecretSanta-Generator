@@ -4,7 +4,7 @@
 const LocalStrategy = require("passport-local").Strategy;
 
 //Load up the user model
-const User = require("../models/user.js")
+const User = require("../models/user.js");
 const bCrypt = require("bcrypt-nodejs");
 
 //Helper function to validate password using bCrypt
@@ -85,7 +85,9 @@ module.exports = function(passport){
 					else{
 						//Create the user
 						var newUser = new User();
-						newUser.username = username,
+						newUser.firstName = req.body.firstName;
+						newUser.lastName = req.body.lastName;
+						newUser.username = username;
 						newUser.password = createHash(password);//encrypt the password
 						newUser.email = req.body.email;
 
