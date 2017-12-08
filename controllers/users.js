@@ -1,6 +1,21 @@
 //Models for MongoDB interaction
 const User = require("../models/user.js");
 const Group = require("../models/group.js");
+//For emailer
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+ service: "gmail",
+ auth: {
+        user: "holiday.gift.exchange1@gmail.com",
+        pass: "J0hnD0375257"
+    }
+});
+let mailOptions = {
+  from: "holiday.gift.exchange1@gmail.com", // sender address
+  to: "to@email.com", // list of receivers
+  subject: "Holiday Gift Exchange Details!", // Subject line
+  html: ""// plain text body
+};
 
 // controllers/routes.js
 module.exports = function(app, passport){
@@ -138,12 +153,30 @@ module.exports = function(app, passport){
 						group.save(function(err){
 							if(err) throw err;
 						});
+						//Mail group information
+						mailOptions.to = group.members[i].SSEmail;
+						mailOptions.html += "<p>Location: "+group.location+"</p>";
+						mailOptions.html += "<p>Budget: "+group.budget+"</p>";
+						mailOptions.html += "<p>You're the gifter for: "+group.members[i].memberUsername+"</p>";
+						transporter.sendMail(mailOptions, function(err, info){
+							if(err) throw err;
+						});
+						mailOptions.html = "";
 					} else{
 						const SSMember = i + 1;
 						group.members[i].SSEmail = (group.members[SSMember].memberEmail);
 						group.save(function(err){
 							if(err) throw err;
 						});
+						//Mail group information
+						mailOptions.to = group.members[i].SSEmail;
+						mailOptions.html += "<p>Location: "+group.location+"</p>";
+						mailOptions.html += "<p>Budget: "+group.budget+"</p>";
+						mailOptions.html += "<p>You're the gifter for: "+group.members[i].memberUsername+"</p>";
+						transporter.sendMail(mailOptions, function(err, info){
+							if(err) throw err;
+						});
+						mailOptions.html = "";
 					}
 				}
 			});
