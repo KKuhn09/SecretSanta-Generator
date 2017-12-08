@@ -31,7 +31,7 @@ app.set("view engine", "ejs"); //Ejs for templating
 //MongoDB config
 mongoose.Promise = Promise; //set mongoose to leverage built in JS ES6 promises
 const db = mongoose.connection;
-mongoose.connect(process.env.MONGOLAB_URI || dbConfig.url);
+mongoose.connect("mongodb://KKuhn09:J0hnD0375257@ds133856.mlab.com:33856/heroku_9c1h39z8" || dbConfig.url);
 db.on("error", function(error) {
   console.log("Mongoose Error: ", error);
 });
