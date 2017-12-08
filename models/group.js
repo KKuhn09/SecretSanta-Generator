@@ -13,7 +13,8 @@ const GroupSchema = new Schema({
 	},
 	members: [{
 		memberUsername: String,
-		memberEmail: String
+		memberEmail: String,
+		SSEmail: String
 	}]
 });
 //Create User model with mongoose

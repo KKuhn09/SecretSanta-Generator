@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Secret Santa</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css"> <!--Browser reset-->
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css"> <!--Browser reset-->
 	<link rel="stylesheet" href="/assets/css/styles.css" type="text/css"> <!--External Style Sheet-->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
@@ -45,9 +45,11 @@
 			<div class="row">
 				<div class="col-sm-offset-2 col-sm-8">
 					<div class="well text-center" style="border-radius:30px">
-						<p class="text-center">Create A Group</p>
 						<form method="get" action="/creategroup">
-							<button type="submit" class="btn btn-success btn-md">Create A Group</button>
+							<button type="submit" class="btn btn-success btn-md">Create A New Group</button>
+						</form>
+						<form method="get" action="/addmembers">
+							<button type="submit" class="btn btn-primary btn-md">View Existing Group</button>
 						</form>
 					</div>
 				</div>

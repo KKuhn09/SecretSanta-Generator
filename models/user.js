@@ -23,10 +23,10 @@ const UserSchema = new Schema({
 		type: String,
 		required: true
 	},
-	groups: [{
+	groupId: {
 		type: Schema.Types.ObjectId,
 		ref: 'Group'
-	}]
+	}
 });
 //Create User model with mongoose
 module.exports = mongoose.model('User', UserSchema);

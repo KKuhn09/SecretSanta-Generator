@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Secret Santa</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css"> <!--Browser reset-->
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css"> <!--Browser reset-->
 	<link rel="stylesheet" href="/assets/css/styles.css" type="text/css"> <!--External Style Sheet-->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
@@ -43,19 +43,39 @@
 			</div>
 
 			<div class="row">
-				<div class="col-sm-offset-2 col-sm-8">
+				<div class="col-sm-6">
 					<div class="well" style="border-radius:30px">
-						<p class="text-center">Now, add the names and emails of the members in your gift exchange</p>
-						<!--Our user-specific information-->
-						<form action="/creategroup" method="post">
+						<h2 class="text-center">Add Members</h2>
+						<hr>
+						<p class="text-center">Add the names and emails of any members of your group</p>
+						<form action="/addmembers" method="post">
 							<div class="form-group">
-								<label for="location">Location</label>
-								<input type="text" class="form-control" name="location" id="location" placeholder="Location" required>
-								<label for="budget">Budget</label>
-								<input type="text" class="form-control" name="budget" id="budget" placeholder="$XX.XX" required>
+								<label for="location">Name</label>
+								<input type="text" class="form-control" name="name" id="name" placeholder="John Doe" required>
+								<label for="budget">Email</label>
+								<input type="email" class="form-control" name="email" id="email" placeholder="john@doe.com" required>
 							</div>
 
-							<button type="submit" id="form-button" class="btn btn-primary btn-md">Create Group</button>
+							<button type="submit" id="form-button" class="btn btn-primary btn-md">Add New Member</button>
+						</form>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="well" style="border-radius:30px">
+						<h2 class="text-center">Group Info</h2>
+						<hr>
+						<p>Budget: <%= group.budget %></p>
+						<p>Location: <%= group.location %></p>
+						<div class="text-center">
+							<p>Group Members:</p>
+							<ul>
+								<% for (var key in group.members){ %>
+									<li><%= group.members[key].memberUsername %></li>
+								<% } %>
+							</ul>
+						</div>
+						<form action="/sendemail" method="post">
+							<button type="submit" class="btn btn-primary btn-md">Send Email</button>
 						</form>
 					</div>
 				</div>

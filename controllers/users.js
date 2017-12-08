@@ -81,13 +81,12 @@ module.exports = function(app, passport){
 		const userId = req.user.id; //Store user id
 		//Find user in database
 		User.findOne({"_id": userId}, function(err, user){
-			console.log(user);
 			var newGroup = new Group({location: req.body.location, budget: req.body.budget});
 			newGroup.members.push({memberUsername: user.username, memberEmail: user.email});
 			newGroup.save(function(err){
 				if(err) throw err;
 			});
-			user.groups.push(newGroup._id);
+			user.groupId = newGroup._id;
 			user.save(function(err){
 				if(err) throw err;
 			});
@@ -97,9 +96,59 @@ module.exports = function(app, passport){
 
 	//Render add members page
 	app.get("/addmembers", function(req, res){
-		res.render("addmembers.ejs", {
-			user : req.user // pass user info to the template
+		const userId = req.user.id; //Store user id
+		//Find user in database
+		User.findOne({"_id" : userId}, function(err, user){
+			//Find the group associated with the user
+			Group.findOne({"_id" : user.groupId}, function(err, group){
+				//Render the add members page
+				res.render("addmembers.ejs", {
+					group: group, // pass group info to the template
+					user : req.user // pass user info to the template
+				});
+			});	
 		});
+	});
+
+	//Create a new group member
+	app.post("/addmembers", function(req, res){
+		const userId = req.user.id; //Store user id
+		//Find user in database
+		User.findOne({"_id" : userId}, function(err, user){
+			Group.findOne({"_id" : user.groupId}, function(err, group){
+				group.members.push({memberUsername: req.body.name, memberEmail: req.body.email});
+				group.save(function(err){
+					if(err) throw err;
+				});
+			});
+		});
+		res.redirect("/addmembers");
+	});
+
+	//Send email to group with Gift Exchange details
+	app.post("/sendemail", function(req, res){
+		const userId = req.user._id; //Store user id
+		//Find user in database
+		User.findOne({"_id" : userId}, function(err, user){
+			Group.findOne({"_id" : user.groupId}, function(err, group){
+				for(var i=0;i<group.members.length;i++){
+					const membersLength = group.members.length-1;
+					if(i===membersLength){
+						group.members[i].SSEmail = (group.members[0].memberEmail);
+						group.save(function(err){
+							if(err) throw err;
+						});
+					} else{
+						const SSMember = i + 1;
+						group.members[i].SSEmail = (group.members[SSMember].memberEmail);
+						group.save(function(err){
+							if(err) throw err;
+						});
+					}
+				}
+			});
+		});
+		res.redirect("/addmembers");
 	});
 
 	//============
