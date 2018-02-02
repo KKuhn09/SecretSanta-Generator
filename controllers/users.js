@@ -26,7 +26,7 @@ module.exports = function(app, passport){
 
 	//Render home page
 	app.get("/", function(req, res){
-		res.render("index.ejs");
+		res.render("index.ejs", {loginMessage: req.flash("loginMessage")});
 	});
 
 	//===========
@@ -41,7 +41,7 @@ module.exports = function(app, passport){
 	//Log the user in
 	app.post("/login", passport.authenticate("local-login", {
 			successRedirect: "/profile", 
-			failureRedirect: "/login",
+			failureRedirect: "/",
 			failureFlash: true
 		}),
 		function(req, res){

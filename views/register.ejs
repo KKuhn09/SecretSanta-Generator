@@ -40,9 +40,7 @@
 				<div class="row">
 					<div class="col-sm-offset-3 col-sm-6">
 						<div class="well signup-well">
-
 							<h1 class="text-center">Sign Up</h1>
-						
 							<form action="/register" method="post">
 								<div class="form-group">
 									<label>First Name</label>
@@ -64,10 +62,8 @@
 									<label>Email</label>
 									<input type="email" class="form-control" name="email" placeholder="john.doe@email.com" required>
 								</div>
-
 								<button type="submit" id="form-button" class="btn btn-primary btn-md">Sign Up</button>
 							</form><br>
-
 							<!-- show any messages that come back with authentication -->
 							<% if(message.length > 0){ %>
 								<div class="alert alert-danger"><%= message %></div>
@@ -76,7 +72,6 @@
 							<hr class="style1">
 							<p>Already have an account? <a href="/login">Login</a></p>
 							<p>Or go <a href="/">home</a>.</p>
-
 						</div>
 					</div>
 				</div>
